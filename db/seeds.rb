@@ -12,8 +12,7 @@ end
 
 5.times do 
     customer = Customer.create(
-        name: Faker::Movies::HarryPotter.character,
-        username: Faker::TvShows::DumbAndDumber.character
+        name: Faker::Movies::HarryPotter.character
     )
     Order.create(
         rating: Faker::Number.between(from: 1, to: 5),
