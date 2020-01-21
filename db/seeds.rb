@@ -3,7 +3,7 @@ require 'faker'
 10.times do
     Coffee.create(
         flavor: Faker::Coffee.blend_name,
-        price: Faker::Number.number(2),
+        price: Faker::Number.between(from: 1, to: 10),
         toppings: Faker::Dessert.flavor
     )
 end
