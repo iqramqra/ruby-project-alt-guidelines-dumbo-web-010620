@@ -1,9 +1,14 @@
-# 100.times do
-#     Coffee.create(
-#         flavor: Faker::Coffee.blend_name
-#     )
+require 'faker'
 
-coffee1 = Coffee.new ("Java", 2, "whipped cream") 
+10.times do
+    Coffee.create(
+        flavor: Faker::Coffee.blend_name,
+        price: Faker::Number.number(2),
+        toppings: Faker::Dessert.flavor
+    )
+end
+
+# coffee1 = Coffee.create ("Java", 2, "whipped cream") 
 
 # Faker::Coffee.blend_name #=> "Summer Solstice"
 
