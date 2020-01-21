@@ -16,3 +16,9 @@ end
         username: Faker::TvShows::DumbAndDumber.character
     )
 end
+
+5.times do 
+    Order.create(
+        rating: Faker::Number.between(from: 1, to: 5),
+    )
+end
