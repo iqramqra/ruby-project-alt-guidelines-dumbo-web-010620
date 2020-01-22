@@ -1,10 +1,10 @@
 require_relative '../config/environment'
-
+require 'pry'
 # puts "hello world"
 
 def run
     name = get_name
-    puts "Hi #{name}, what would you like to do next?"
+    puts "Hello #{name}, what would you like to do?"
     main_menu
   end
   
@@ -14,24 +14,32 @@ def run
     gets.chomp
   end
   
+
   def main_menu
-    puts "Show Menu (l), Customize order (c)"
+    puts "Show Menu (l), Customize Your Order (c), Delete Your Order (d)"
     answer = gets.chomp.downcase
   
     if answer == "l"
-        pp Coffee.all.pluck(:flavor)
+        pp Coffee.all.pluck(:flavor, :price)
         main_menu
       # get all games, iterate through, and print to screen
     elsif answer == "c"
-        pp Coffee.all.pluck(:flavor)
+        pp Coffee.all.pluck(:flavor, :price)
         puts "Enter the flavor of coffee"
         coffee_flavor = gets.chomp
         pp Coffee.all.pluck(:toppings)
         puts "Enter the toppings"
         coffee_toppings = gets.chomp
-        Coffee.create(flavor: coffee_flavor, toppings: coffee_toppings, price: 5)
+        puts "Select Your Cup Size from S, M, or L"
+        coffee_size = gets.chomp
+
+        price = Coffee.all.pluck(:flavor, :price) == coffee_flavor
+        Coffee.create(flavor: coffee_flavor, toppings: coffee_toppings, price: price, size: coffee_size)
       # prompt the user to create a new game, and save it to the database
-    else
+    # elsif answer == "d" 
+
+
+    else 
       puts "🤷‍♀️"
       main_menu
     end

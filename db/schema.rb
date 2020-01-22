@@ -14,15 +14,15 @@ ActiveRecord::Schema.define(version: 2020_01_21_150510) do
 
   create_table "coffees", force: :cascade do |t|
     t.string "flavor"
-    t.integer "price"
+    t.float "price"
     t.string "toppings"
+    t.string "size"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
   create_table "customers", force: :cascade do |t|
     t.string "name"
-    t.string "username"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
