@@ -9,3 +9,5 @@ gem "require_all"
 gem 'faker', :git => 'https://github.com/faker-ruby/faker.git', :branch => 'master'
 gem 'tty-prompt'
 gem 'colorize'
+gem 'figlet', '~> 1.1'
+gem 'lolcat', '~> 100.0'
