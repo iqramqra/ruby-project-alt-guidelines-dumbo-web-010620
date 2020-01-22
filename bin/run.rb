@@ -24,7 +24,7 @@ end
   def return_to_main_menu
     puts "Return to Main Menu (r)"
         ans = gets.chomp.downcase 
-    if ans = "r"
+    if ans == "r"
         main_menu 
     end 
   end 
@@ -102,3 +102,9 @@ end
 # greet
 # user_input
 # # welcome(name)
+
+
+
+# CLI = New code
+# new_cli = CommandLineInterface.new
+# new_cli.coffee_shop
