@@ -1,4 +1,5 @@
 require 'faker'
+Order.destroy_all
 
 10.times do
     Coffee.create(

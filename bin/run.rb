@@ -4,13 +4,13 @@ require_relative '../config/environment'
 
 def run
     name = get_name
-    puts "Hello #{name}, what would you like to do next?"
+    puts "Hi #{name}, what would you like to do next?"
     main_menu
   end
   
   def get_name
-    puts "Hi!"
-    puts "Please enter your name:"
+    puts "Welcome to your local coffee shop!"
+    puts "Enter your name to get started:"
     gets.chomp
   end
   
