@@ -3,25 +3,39 @@ require 'pry'
 # puts "hello world"
 
 def run
+    welcome 
+     puts "Hello #{new_customer}, what would you like to do?"
+    main_menu  
+  end
+
+def new_customer 
     name = get_name
-    puts "Hello #{name}, what would you like to do?"
-    main_menu
-  end
-  
+    Customer.create(name: name)
+end 
+    def welcome 
+        puts "Hi!"
+        puts "Please enter your name:"
+    end 
+
   def get_name
-    puts "Welcome to your local coffee shop!"
-    puts "Enter your name to get started:"
-    gets.chomp
+   gets.chomp
   end
   
+  def return_to_main_menu
+    puts "Return to Main Menu (r)"
+        ans = gets.chomp.downcase 
+    if ans = "r"
+        main_menu 
+    end 
+  end 
 
   def main_menu
-    puts "Show Menu (l), Customize Your Order (c), Delete Your Order (d)"
+    puts "Show Menu (l), Customize Your Order (c), View your Order (v), Delete Your Order (d),  Exit (e)"
     answer = gets.chomp.downcase
-  
+
     if answer == "l"
         pp Coffee.all.pluck(:flavor, :price)
-        main_menu
+        return_to_main_menu
       # get all games, iterate through, and print to screen
     elsif answer == "c"
         pp Coffee.all.pluck(:flavor, :price)
@@ -34,15 +48,31 @@ def run
         coffee_size = gets.chomp
 
         price = Coffee.all.pluck(:flavor, :price) == coffee_flavor
-        Coffee.create(flavor: coffee_flavor, toppings: coffee_toppings, price: price, size: coffee_size)
-      # prompt the user to create a new game, and save it to the database
+        new_coffee = Coffee.new(flavor: coffee_flavor, toppings: coffee_toppings, price: price, size: coffee_size)
+
+        puts "Rate your Service from 1 to 5"
+            rating = gets.chomp 
+
+        puts "Your Order has been Created!"  
+        order = Order.create(rating: rating, customer_id: new_customer.id, coffee_id: new_coffee.id)
+        return_to_main_menu
+    elsif answer == "v"
+      orders = Order.all.select {|orders| orders.customer}
+     return_to_main_menu
+
     # elsif answer == "d" 
+    elsif answer == "e"
+        exit 
 
 
     else 
-      puts "🤷‍♀️"
+     puts "Invalid Entry, Please try again"
       main_menu
     end
+
+    def exit 
+        Exit
+    end 
   end
   
   run
