@@ -15,10 +15,14 @@ class CommandLineInterface
       puts "Welcome to Hot Off the Iron Coffee Shop!"
     end
 
+    def ask_name 
+      prompt.ask('What is your name?', required: true)
+      customer_name
+    end 
+
     def customer_name
       prompt = TTY::Prompt.new
-      prompt.ask('What is your name?', required: true)
-      # name = gets.chomp
+      Customer.create(name: prompt)
     end
 
     def first_menu
@@ -27,7 +31,9 @@ class CommandLineInterface
 
         menu.choice 'Order Coffee', 1
         menu.choice 'See Menu', 2
-        menu.choice 'Exit', 3
+        menu.choice 'View Your Order', 3
+        menu.choice 'Delete Your Order', 4
+        menu.choice 'Exit', 5
       end
     end
 
@@ -37,7 +43,11 @@ class CommandLineInterface
         order_coffee
       when 2
         see_menu
-      when 3
+      when 3 
+        view_orders
+      when 4
+        delete_order
+      when 5
         exit_message
       end
     end
@@ -57,10 +67,15 @@ class CommandLineInterface
         puts ' '
         puts "Your Order has been Created!"
         puts ' '
-        order = Order.create(customer_id: new_customer.id, coffee_id: new_coffee.id)
+        order = Order.create(customer_id: customer_name.id, coffee_id: new_coffee.id)
           
-           
+           start_menu
     end
+
+    def view_orders 
+      Order.all
+      start_menu
+    end 
 
     def see_menu
       pp Coffee.all.pluck(:flavor, :price)
@@ -68,6 +83,8 @@ class CommandLineInterface
       puts "scroll for toppings"
       puts ""
       pp Coffee.all.pluck(:toppings)
+
+      start_menu
     end
 
     def exit_message
@@ -76,12 +93,16 @@ class CommandLineInterface
       system("clear")
     end
 
+    def delete_order
+      Order.destroy_all
+      start_menu
+    end 
 
     def coffee_shop
        system("clear")
        title
        welcome
-       customer_name
+       ask_name
       #  first_menu
        start_menu
     end
