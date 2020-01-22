@@ -16,7 +16,6 @@ end
         name: Faker::Movies::HarryPotter.character
     )
     Order.create(
-        rating: Faker::Number.between(from: 1, to: 5),
         customer_id: customer.id,
         coffee_id: Coffee.all.sample.id
     )

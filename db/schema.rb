@@ -28,7 +28,6 @@ ActiveRecord::Schema.define(version: 2020_01_21_150510) do
   end
 
   create_table "orders", force: :cascade do |t|
-    t.integer "rating"
     t.integer "customer_id"
     t.integer "coffee_id"
     t.datetime "created_at", null: false
