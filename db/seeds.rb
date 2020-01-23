@@ -1,24 +1,16 @@
 require 'faker'
 Order.destroy_all
+Coffee.destroy_all
 
-eric = Customer.create(name: "Eric")
-order1 = Order.create(coffee_id = medium, customer_id: eric.id) 
+toppings_array = ["Vanilla", "Coconut", "Pistachio", "Strawberry", "Peanut Butter", "None"]
+size_array = ["Small", "Medium", "Large"]
+coffee_array = ["Cinnamon", "Light", "Medium", "Dark", "French", "Italian"]
+price_array = [4.0, 5.0, 9.0, 3.0, 3.0, 9.0]
 
+10.times do 
+coffee1 = Coffee.create(flavor: coffee_array.sample, price: price_array.sample, toppings: toppings_array.sample, size: size_array.sample)
+end 
 
-# Coffee
-cinnamon = Coffee.create(flavor: 'Cinnamon', price: Faker::Number.between(from: 1, to: 10), toppings: Faker::Dessert.flavor)
-light = Coffee.create(flavor: 'Light', price: Faker::Number.between(from: 1, to: 10), toppings: Faker::Dessert.flavor)
-medium = Coffee.create(flavor: 'Medium', price: Faker::Number.between(from: 1, to: 10), toppings: Faker::Dessert.flavor)
-dark = Coffee.create(flavor: 'Dark', price: Faker::Number.between(from: 1, to: 10), toppings: Faker::Dessert.flavor)
-french = Coffee.create(flavor: 'French', price: Faker::Number.between(from: 1, to: 10), toppings: Faker::Dessert.flavor)
-italian = Coffee.create(flavor: 'Italian', price: Faker::Number.between(from: 1, to: 10), toppings: Faker::Dessert.flavor)
- 
-# 5.times do 
-#     customer = Customer.create(
-#         name: Faker::Movies::HarryPotter.character
-#     )
-#     Order.create(
-#         customer_id: customer.id,
-#         coffee_id: Coffee.all.sample.id
-#     )
-# end
+# #         coffee_id: Coffee.all.sample.id
+# #     )
+# # end

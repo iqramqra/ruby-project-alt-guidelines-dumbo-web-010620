@@ -8,9 +8,9 @@ class CommandLineInterface
       @prompt = TTY::Prompt.new
     end
 
-    # def title
-    #   fork{exec 'lolcat -a -d 4 lib/titlesequence.plaintext'}
-    # end
+    def title
+      fork{exec 'lolcat -a -d 4 lib/titlesequence.plaintext'}
+    end
     # fork{exec 'lolcat -a -d 4 lib/titlesequence.plaintext'}
     
 
@@ -127,15 +127,16 @@ end
         size3 = Coffee.create(size: "Large")
       end
     end 
-  
+
     def create_order 
       puts "Your Order has been Created!"
-        new_order = Order.create(customer_id: new_customer.id, coffee_id: new_coffee.id)
+        Order.create(customer_id: new_customer.id)
+        # binding.pry 
         start_menu
     end 
 
     def view_orders
-      Order.all.find_by(new_customer.name)
+      pp Order.all
       start_menu
     end 
 
@@ -143,11 +144,11 @@ end
       puts ""
       puts "Flavors:"
       puts ""
-      pp Coffee.all.pluck(:flavor, :price)
+      pp Coffee.all.pluck(:flavor).uniq
       puts ""
       puts "Toppings:"
       puts ""
-      pp Coffee.all.pluck(:toppings)
+      pp Coffee.all.pluck(:toppings).uniq
       puts ""
       start_menu
     end
@@ -159,7 +160,7 @@ end
     end
 
     def delete_order
-      Order.destroy_all
+      Order.first.destroy
       start_menu
     end 
 
