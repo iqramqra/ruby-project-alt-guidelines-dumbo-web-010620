@@ -102,7 +102,7 @@ class CommandLineInterface
         new6 = Coffee.new(flavor: "Italian", price: 9.0, toppings: make_order_toppings, size: make_order_size)
 
         create_order
-        start_menu
+        first_menu
       end 
       # create_order
       # start_menu
