@@ -1,9 +1,17 @@
+require 'colorize'
+require 'lolcat'
 class CommandLineInterface
     attr_accessor :customer, :order, :coffee, :prompt
 
     def initialize()
       @prompt = TTY::Prompt.new
     end
+
+    def title
+      fork{exec 'lolcat -a -d 4 lib/titlesequence.plaintext'}
+    end
+    # fork{exec 'lolcat -a -d 4 lib/titlesequence.plaintext'}
+    
 
     def welcome
       puts "Welcome to Hot Off the Iron Coffee Shop!"
@@ -60,7 +68,7 @@ class CommandLineInterface
       toppings_menu
       cup_size
       make_order
-      # create_order
+      create_order
     end 
 
     def toppings_menu 
@@ -187,10 +195,11 @@ class CommandLineInterface
     end 
 
     def coffee_shop
-       system("clear")
-       welcome
-       ask_name
+      system("clear")
+      title 
+      welcome
+      ask_name
       #  first_menu
-       start_menu
+      start_menu
     end
 end
