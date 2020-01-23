@@ -1,14 +1,8 @@
-require 'figlet'
-
 class CommandLineInterface
     attr_accessor :customer, :order, :coffee, :prompt
 
     def initialize()
       @prompt = TTY::Prompt.new
-    end
-
-    def title
-      # lolcat "Hot Off The Iron"
     end
 
     def welcome
@@ -100,7 +94,6 @@ class CommandLineInterface
 
     def coffee_shop
        system("clear")
-       title
        welcome
        ask_name
       #  first_menu
