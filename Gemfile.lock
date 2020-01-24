@@ -25,7 +25,6 @@ GEM
     colorize (0.8.1)
     concurrent-ruby (1.1.5)
     equatable (0.6.1)
-    figlet (1.1.0)
     i18n (1.7.0)
       concurrent-ruby (~> 1.0)
     lolcat (100.0.0)
@@ -82,7 +81,6 @@ DEPENDENCIES
   activerecord (~> 5.2)
   colorize
   faker!
-  figlet (~> 1.1)
   lolcat (~> 100.0)
   pry
   require_all

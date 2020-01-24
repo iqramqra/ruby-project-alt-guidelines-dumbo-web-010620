@@ -11,9 +11,7 @@ class CommandLineInterface
     def title
       fork{exec 'lolcat -a -d 4 lib/titlesequence.plaintext'}
     end
-    # fork{exec 'lolcat -a -d 4 lib/titlesequence.plaintext'}
-    
-
+   
     def welcome
       puts "Welcome to Hot Off the Iron Coffee Shop!"
       run
@@ -21,7 +19,7 @@ class CommandLineInterface
 
   def run
     puts "Please enter your name:"
-    puts "Hello #{new_customer.name}!"
+    puts "Hello #{new_customer.name}!".light_yellow
   end
 
 def new_customer 
@@ -32,16 +30,26 @@ end
   def get_name
    gets.chomp
   end
+
+  def change_name
+    puts "Enter your new name."
+    my_name = gets.chomp 
+    new_new_name = new_customer.update(name: my_name)
+    puts "Your name has been changed to #{my_name}".light_yellow
+    puts ""
+    start_menu
+  end
   
     def first_menu
       prompt.select('What would you like to do?') do |menu|
         menu.default
 
-        menu.choice 'Order Coffee', 1
-        menu.choice 'See Menu', 2
-        menu.choice 'View Your Order', 3
-        menu.choice 'Delete Your Order', 4
-        menu.choice 'Exit', 5
+        menu.choice 'Order Coffee'.light_yellow, 1
+        menu.choice 'See Menu'.light_yellow, 2
+        menu.choice 'View Your Order'.light_yellow, 3
+        menu.choice 'Delete Your Order'.light_yellow, 4
+        menu.choice 'Change Your Name'.light_yellow, 5
+        menu.choice 'Exit'.red, 6
       end
     end
 
@@ -56,19 +64,21 @@ end
       when 4
         delete_order
       when 5
+        change_name
+      when 6
         exit_message
       end
     end
     
     def order_menu 
-      flavor_number = prompt.select('Choose Your Flavor') do |menu|
+      flavor_number = prompt.select('Choose Your Favorite Type of Coffee') do |menu|
       menu.default
-      menu.choice 'Cinnamon', 1
-      menu.choice 'Light', 2
-      menu.choice 'Medium', 3
-      menu.choice 'Dark', 4
-      menu.choice 'French', 5
-      menu.choice 'Italian', 6 
+      menu.choice 'Cinnamon'.light_yellow, 1
+      menu.choice 'Light'.light_yellow, 2
+      menu.choice 'Medium'.light_yellow, 3
+      menu.choice 'Dark'.light_yellow, 4
+      menu.choice 'French'.light_yellow, 5
+      menu.choice 'Italian'.light_yellow, 6 
     end
     # binding.pry
     make_order(flavor_number)
@@ -76,23 +86,23 @@ end
   end 
 
   def toppings_menu(coffee) 
-    topps = prompt.select('Choose Your Toppings') do |menu|
+    topps = prompt.select('Choose Your Favorite Type of Milk') do |menu|
     menu.default
-    menu.choice 'Vanilla', Coffee.update(toppings: 'Vanilla')
-    menu.choice 'Coconut', Coffee.update(toppings: 'Coconut')
-    menu.choice 'Pistachio', Coffee.update(toppings: 'Pistachio')
-    menu.choice 'Strawberry', Coffee.update(toppings: 'Strawberry')
-    menu.choice 'Peanut Butter', Coffee.update(toppings: 'Peanut Butter')
-    menu.choice 'none', Coffee.update(toppings: 'none')
+    menu.choice 'Vanilla'.light_yellow, Coffee.update(toppings: 'Vanilla')
+    menu.choice 'Coconut'.light_yellow, Coffee.update(toppings: 'Coconut')
+    menu.choice 'Pistachio'.light_yellow, Coffee.update(toppings: 'Pistachio')
+    menu.choice 'Strawberry'.light_yellow, Coffee.update(toppings: 'Strawberry')
+    menu.choice 'Peanut Butter'.light_yellow, Coffee.update(toppings: 'Peanut Butter')
+    menu.choice 'none'.white, Coffee.update(toppings: 'none')
   end 
 end  
 
 def cup_size(coffee)
-  size = prompt.select('Select Your Size') do |menu|
+  size = prompt.select('What Size Would You Like?') do |menu|
   menu.default
-  menu.choice 'Small', Coffee.update(size: 'Small')
-  menu.choice 'Medium', Coffee.update(size: 'Medium')
-  menu.choice 'Large', Coffee.update(size: 'Large')
+  menu.choice 'Small'.light_yellow, Coffee.update(size: 'Small')
+  menu.choice 'Medium'.light_yellow, Coffee.update(size: 'Medium')
+  menu.choice 'Large'.light_yellow, Coffee.update(size: 'Large')
 end 
 end 
 
@@ -130,13 +140,24 @@ end
 
     def create_order 
       puts "Your Order has been Created!"
-        Order.create(customer_id: new_customer.id)
+        Order.create(customer_id: new_customer.id, coffee_id: @new)
         # binding.pry 
         start_menu
     end 
 
     def view_orders
-      pp Order.all
+      if Order.all.length < 1
+         puts ""
+         puts "Your order list is empty.".red
+         puts ""
+      else
+        pp Order.all
+
+        # order_array =  Order.all.pluck(:flavor)
+        # order_array.each do |e|
+        #   puts "#{e}"
+        # end
+      end
       start_menu
     end 
 
@@ -144,11 +165,18 @@ end
       puts ""
       puts "Flavors:"
       puts ""
-      pp Coffee.all.pluck(:flavor).uniq
+      # Coffee.all.pluck(:flavor).uniq
+      flavor_array =  Coffee.all.pluck(:flavor).uniq
+      flavor_array.each do |e|
+        puts "#{e}"
+      end
       puts ""
       puts "Toppings:"
       puts ""
-      pp Coffee.all.pluck(:toppings).uniq
+      topping_array = Coffee.all.pluck(:toppings).uniq
+      topping_array.each do |t|
+        puts "#{t}"
+      end
       puts ""
       start_menu
     end
@@ -164,23 +192,18 @@ end
       start_menu
     end 
 
+    def play_bell
+      pid = fork{exec 'afplay', "lib/bell_counter.mp3"}
+    end
+
     def coffee_shop
       system("clear")
-      # title 
+
+      # title
+      # play_bell 
       # sleep 6.5
       welcome
       sleep 1.0
       start_menu
     end
 end
-
-
-
-
-  # def new_coffee 
-    #   new_coff = Coffee.create(flavor: order_menu, price: order_menu, toppings: toppings_menu, size: cup_size)
-    # end 
-      # 
-      #   start_menu(customer)
-    # end 
-  
