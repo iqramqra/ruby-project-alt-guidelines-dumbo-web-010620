@@ -6,6 +6,7 @@ class CommandLineInterface
 
     def initialize()
       @prompt = TTY::Prompt.new
+      @@coff = @new
     end
 
     def title
@@ -82,7 +83,7 @@ end
     end
     # binding.pry
     make_order(flavor_number)
-    create_order 
+    create_order
   end 
 
   def toppings_menu(coffee) 
@@ -121,11 +122,14 @@ def make_order(flavor_number)
     @new = Coffee.create(flavor: "French", price: 3.0, toppings: nil, size: nil)
   when 6
     @new = Coffee.create(flavor: "Italian", price: 9.0, toppings: nil, size: nil)
+    # binding.pry 
   end 
   toppings_menu(@new)
   cup_size(@new)
-  
 end  
+
+  
+  
 
     def make_order_size 
       case choice = cup_size
@@ -138,10 +142,10 @@ end
       end
     end 
 
-    def create_order 
+    def create_order
       puts ""
       puts "Your Order has been Created!".red 
-        Order.create(customer_id: new_customer.id, coffee_id: @new)
+        Order.create(customer_id: new_customer.id, coffee_id: @new.id)
         # binding.pry 
         start_menu
     end 
