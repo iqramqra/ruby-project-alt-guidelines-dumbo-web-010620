@@ -151,12 +151,19 @@ end
     end 
 
     def view_orders
-      if Order.all.length < 1
-         puts ""
-         puts "Your order list is empty.".red
-         puts ""
+      if Order.all.length >= 1
+        #  pp Coffee.last
+        coff_order = Order.all.map {|order|order.coffee} 
+        coff_order.map do |i|
+          puts "flavor: #{i.flavor}"
+          puts "toppings: #{i.toppings}"
+          puts "size: #{i.size}"
+          puts "price: #{i.price}"
+          puts "===================="
+        end
       else
-        pp Order.all
+        puts "Your order list is empty.".red
+        # pp Order.all
 
         # order_array =  Order.all.pluck(:flavor)
         # order_array.each do |e|
@@ -200,6 +207,7 @@ end
       else 
       puts ""
       puts "Your Order Has Been Deleted.".red
+      puts " "
       Order.first.destroy
       start_menu
       end 
@@ -209,9 +217,10 @@ end
       pid = fork{exec 'afplay', "lib/bell_counter.mp3"}
     end
 
+
     def coffee_shop
       system("clear")
-
+      Order.destroy_all
       # title
       # play_bell 
       # sleep 6.5
