@@ -139,7 +139,8 @@ end
     end 
 
     def create_order 
-      puts "Your Order has been Created!"
+      puts ""
+      puts "Your Order has been Created!".red 
         Order.create(customer_id: new_customer.id, coffee_id: @new)
         # binding.pry 
         start_menu
@@ -188,10 +189,16 @@ end
     end
 
     def delete_order
+      if Order.all.length == 0 
+       puts ""
+       puts "There is No Order to Delete".red 
+       start_menu
+      else 
       puts ""
       puts "Your Order Has Been Deleted.".red
       Order.first.destroy
       start_menu
+      end 
     end 
 
     def play_bell
