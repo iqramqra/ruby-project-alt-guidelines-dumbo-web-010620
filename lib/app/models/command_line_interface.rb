@@ -89,21 +89,21 @@ end
   def toppings_menu(coffee) 
     topps = prompt.select('Choose Your Favorite Type of Milk') do |menu|
     menu.default
-    menu.choice 'Vanilla'.light_yellow, Coffee.update(toppings: 'Vanilla')
-    menu.choice 'Coconut'.light_yellow, Coffee.update(toppings: 'Coconut')
-    menu.choice 'Pistachio'.light_yellow, Coffee.update(toppings: 'Pistachio')
-    menu.choice 'Strawberry'.light_yellow, Coffee.update(toppings: 'Strawberry')
-    menu.choice 'Peanut Butter'.light_yellow, Coffee.update(toppings: 'Peanut Butter')
-    menu.choice 'none'.white, Coffee.update(toppings: 'none')
+    menu.choice 'Vanilla'.light_yellow, -> {coffee.update(toppings: 'Vanilla')}
+    menu.choice 'Coconut'.light_yellow, -> {coffee.update(toppings: 'Coconut')}
+    menu.choice 'Pistachio'.light_yellow, -> {coffee.update(toppings: 'Pistachio')}
+    menu.choice 'Strawberry'.light_yellow, -> {coffee.update(toppings: 'Strawberry')}
+    menu.choice 'Peanut Butter'.light_yellow, -> {coffee.update(toppings: 'Peanut Butter')}
+    menu.choice 'none'.white, -> {coffee.update(toppings: 'none')}
   end 
 end  
 
 def cup_size(coffee)
   size = prompt.select('What Size Would You Like?') do |menu|
   menu.default
-  menu.choice 'Small'.light_yellow, Coffee.update(size: 'Small')
-  menu.choice 'Medium'.light_yellow, Coffee.update(size: 'Medium')
-  menu.choice 'Large'.light_yellow, Coffee.update(size: 'Large')
+  menu.choice 'Small'.light_yellow, -> {coffee.update(size: 'Small')}
+  menu.choice 'Medium'.light_yellow, -> {coffee.update(size: 'Medium')}
+  menu.choice 'Large'.light_yellow, -> {coffee.update(size: 'Large')}
 end 
 end 
 
@@ -212,9 +212,9 @@ end
     def coffee_shop
       system("clear")
 
-      title
-      play_bell 
-      sleep 6.5
+      # title
+      # play_bell 
+      # sleep 6.5
       welcome
       sleep 1.0
       start_menu
