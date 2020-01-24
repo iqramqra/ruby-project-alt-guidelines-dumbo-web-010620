@@ -175,7 +175,7 @@ end
 
     def see_menu
       puts ""
-      puts "Flavors:"
+      puts "Type of Coffee:"
       puts ""
       # Coffee.all.pluck(:flavor).uniq
       flavor_array =  Coffee.all.pluck(:flavor).uniq
@@ -183,7 +183,7 @@ end
         puts "#{e}"
       end
       puts ""
-      puts "Toppings:"
+      puts "Type of Milk:"
       puts ""
       topping_array = Coffee.all.pluck(:toppings).uniq
       topping_array.each do |t|
@@ -221,9 +221,9 @@ end
     def coffee_shop
       system("clear")
       Order.destroy_all
-      # title
-      # play_bell 
-      # sleep 6.5
+      title
+      play_bell 
+      sleep 6.5
       welcome
       sleep 1.0
       start_menu
