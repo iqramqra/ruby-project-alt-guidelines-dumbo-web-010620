@@ -13,12 +13,12 @@ class CommandLineInterface
     end
    
     def welcome
-      puts "Welcome to Hot Off the Iron Coffee Shop!"
+      puts "Welcome to Hot Off the Iron Coffee Shop!".green
       run
     end
 
   def run
-    puts "Please enter your name:"
+    puts "Please enter your name:".green
     puts "Hello #{new_customer.name}!".light_yellow
   end
 
@@ -182,12 +182,14 @@ end
     end
 
     def exit_message
-      puts "Enjoy!"
+      puts "Enjoy!".yellow 
       sleep 1.0
       system("clear")
     end
 
     def delete_order
+      puts ""
+      puts "Your Order Has Been Deleted.".red
       Order.first.destroy
       start_menu
     end 
@@ -199,9 +201,9 @@ end
     def coffee_shop
       system("clear")
 
-      # title
-      # play_bell 
-      # sleep 6.5
+      title
+      play_bell 
+      sleep 6.5
       welcome
       sleep 1.0
       start_menu
